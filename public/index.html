@@ -4,5 +4,24 @@
     </head>
     <body>  
         <canvas id = 'gl-canvas' width="640" height="480"></canvas>
+        <script id="fragment-shader" type="x-shader/x-fragment">
+            precision mediump float;
+            uniform vec2 screen_size;
+
+            vec2 coord; 
+            
+            vec2 worldCoord() {
+                float min_size; 
+                vec2 middle = screen_size * .5; 
+                min_size = min(screen_size.x, screen_size.y);  
+                return (gl_FragCoord.xy - middle) / min_size;
+            }
+
+            void main() {   
+                coord = worldCoord();
+                gl_FragColor = vec4(0, 0.0, abs(coord.y), 1);
+            }
+
+        </script>
     </body>
 </html>
